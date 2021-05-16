@@ -31,41 +31,41 @@ int main(int argc, char** argv)
     Addr2->sin_addr.s_addr = inet_addr("82.179.90.12");
 
     char* buf = new char[256];
-    strcpy(buf, "Какая дата и время?\n"); 
+    strcpy(buf, "Дата и время\n"); 
     int msgLen = strlen(buf);        
 
-    int mySocket = socket(AF_INET, SOCK_DGRAM, 0);  //UDP
-    if (mySocket == -1) {
+    int s = socket(AF_INET, SOCK_DGRAM, 0);  //UDP
+    if (s == -1) {
         error("Ошибка открытия сокета", 11);
     }
 
-    int rc = bind(mySocket, (const sockaddr*)Addr1, sizeof(sockaddr_in));
+    int rc = bind(s, (const sockaddr*)Addr1, sizeof(sockaddr_in));
     if (rc == -1) {
-        _close(mySocket);
+        _close(s);
         error("Ошибка привязки сокета с локальным адресом", 12);
     }
 
-    rc = connect(mySocket, (const sockaddr*)Addr2, sizeof(sockaddr_in));
+    rc = connect(s, (const sockaddr*)Addr2, sizeof(sockaddr_in));
     if (rc == -1) {
-        _close(mySocket);
+        _close(s);
         error("Ошибка подключения сокета к удаленному серверу", 13);
     }
 
-    rc = send(mySocket, buf, msgLen, 0);
+    rc = send(s, buf, msgLen, 0);
     if (rc == -1) { 
-        _close(mySocket);
+        _close(s);
         error("Сообщение об ошибке отправки", 14);
     }
     cout << "Мы отправляем: " << buf << endl;
-    rc = recv(mySocket, buf, 256, 0);
+    rc = recv(s, buf, 256, 0);
     if (rc == -1) { 
-        _close(mySocket);
+        _close(s);
         error("Ошибка получения ответа", 15);
     }
 
     cout << "Мы получаем: " << buf << endl;
 
-    _close(mySocket);
+    _close(s);
     delete Addr1;
     delete Addr2;
     delete[] buf;
