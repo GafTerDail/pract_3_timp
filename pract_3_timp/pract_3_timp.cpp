@@ -34,7 +34,7 @@ int main(int argc, char** argv)
     strcpy(buf, "Какая дата и время?\n"); 
     int msgLen = strlen(buf);        
 
-    int mySocket = socket(AF_INET, SOCK_DGRAM, 0);  //TDC
+    int mySocket = socket(AF_INET, SOCK_DGRAM, 0);  //UDP
     if (mySocket == -1) {
         error("Ошибка открытия сокета", 11);
     }
