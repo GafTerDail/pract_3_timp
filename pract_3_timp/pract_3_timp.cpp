@@ -34,7 +34,7 @@ int main(int argc, char** argv)
     strcpy(buf, "Дата и время\n"); 
     int msgLen = strlen(buf);        
 
-    int s = socket(AF_INET, SOCK_STREAM, 0);  //TDC
+    int s = socket(AF_INET, SOCK_STREAM, 0);  //TСР
     if (s == -1) {
         error("Ошибка открытия сокета", 11);
     }
